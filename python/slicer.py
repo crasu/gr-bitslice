@@ -36,10 +36,7 @@ class slicer(gr.basic_block):
             ninput_items_required[i] = self.omega
 
     def general_work(self, input_items, output_items):
-        print("general_work")
-        #output_items[0][0] = input_items[0][0]
         sample = input_items[0][0:self.omega]
-        print("sample: {}".format(sample))
         if(numpy.count_nonzero(sample) > self.omega/2):
             output_items[0][0] = 1
         else:
@@ -49,7 +46,6 @@ class slicer(gr.basic_block):
         if consume == 0: # full consume if only phase change is at sample start
             consume = self.omega
         
-        print("consume {}".format(consume))
         self.consume_each(consume)
         return 1
 
@@ -61,7 +57,6 @@ class slicer(gr.basic_block):
 	    char_to_find = 1
 
         char_idx = numpy.nonzero(sample == char_to_find)[0] 
-        print(char_idx)
         if char_idx.size == 0:
 	    return self.omega
 
