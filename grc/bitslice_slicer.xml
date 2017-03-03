@@ -5,12 +5,17 @@
   <category>Synchronizers</category>
   <import>import bitslice</import>
   <make>bitslice.slicer()</make>
+  <param>
+    <name>omega</name>
+    <key>omega</key>
+    <type>int</type>
+  </param>
   <sink>
     <name>in</name>
-    <type>float</type>
+    <type>byte</type>
   </sink>
   <source>
     <name>out</name>
-    <type>float</type>
+    <type>byte</type>
   </source>
 </block>
