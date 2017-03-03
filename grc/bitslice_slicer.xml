@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<block>
+  <name>slicer</name>
+  <key>bitslice_slicer</key>
+  <category>Synchronizers</category>
+  <import>import bitslice</import>
+  <make>bitslice.slicer()</make>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>
