@@ -24,11 +24,11 @@ from gnuradio import gr
 
 class slicer(gr.basic_block):
     def __init__(self, omega = 1):
-        self.omega = omega
         gr.basic_block.__init__(self,
             name="slicer",
             in_sig=[numpy.uint8],
             out_sig=[numpy.uint8])
+        self.omega = omega
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call

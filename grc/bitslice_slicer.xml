@@ -4,7 +4,7 @@
   <key>bitslice_slicer</key>
   <category>Synchronizers</category>
   <import>import bitslice</import>
-  <make>bitslice.slicer()</make>
+  <make>bitslice.slicer($omega)</make>
   <param>
     <name>omega</name>
     <key>omega</key>

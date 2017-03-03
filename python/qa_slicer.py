@@ -36,7 +36,7 @@ class qa_slicer (gr_unittest.TestCase):
 
     def run_slicer(self, input, output, omega):
         src = blocks.vector_source_b(input, False)
-        sl = slicer(omega = omega)
+        sl = slicer(omega)
         sink = blocks.vector_sink_b()
         self.tb.connect(src, sl, sink)
         self.tb.run()
