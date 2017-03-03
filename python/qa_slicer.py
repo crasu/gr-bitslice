@@ -45,12 +45,13 @@ class qa_slicer (gr_unittest.TestCase):
     def test_process_sample(self):
         input = str_to_array("110101")
         self.run_slicer(input, tuple(input), 1)
-        #self.run_slicer(self.str_to_array("00111100111"), tuple(self.str_to_array("0101")), 3)
         self.run_slicer([0, 0, 0, 1, 1, 1], (0, 1), 3)
-        #self.run_slicer([0, 0, 1, 1, 1], (0, 1), 3)
-        #self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 3)
-        #self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 2)
-        #self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 7)
+        self.run_slicer([0, 0, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1, 1), 2)
+        self.run_slicer([0], (), 2)
+        self.run_slicer([0, 0, 1, 1, 1, 1], (1,), 6)
+        self.run_slicer([0,0,1,1,1,1,0,0,1,1,1], (0,1,0,1), 3)
 
 if __name__ == '__main__':
     gr_unittest.run(qa_slicer, "qa_slicer.xml")

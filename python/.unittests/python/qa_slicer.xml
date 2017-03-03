@@ -1,5 +1,5 @@
-<testsuite errors="0" failures="0" name="unittest.suite.TestSuite" tests="1" time="0.023">
-  <testcase classname="__main__.qa_slicer" name="test_process_sample" time="0.0225"></testcase>
+<testsuite errors="0" failures="0" name="unittest.suite.TestSuite" tests="1" time="0.049">
+  <testcase classname="__main__.qa_slicer" name="test_process_sample" time="0.0490"></testcase>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

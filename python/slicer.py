@@ -39,30 +39,33 @@ class slicer(gr.basic_block):
         print("general_work")
         #output_items[0][0] = input_items[0][0]
         sample = input_items[0][0:self.omega]
-        print(sample)
+        print("sample: {}".format(sample))
         if(numpy.count_nonzero(sample) > self.omega/2):
             output_items[0][0] = 1
         else:
             output_items[0][0] = 0
-        self.consume_each(self.omega)
+
+        consume = self.find_phase_change(sample)
+        if consume == 0: # full consume if only phase change is at sample start
+            consume = self.omega
+        
+        print("consume {}".format(consume))
+        self.consume_each(consume)
         return 1
 
     def find_phase_change(self, sample):
-	if sampe[rate/2] == "1":
-	    char_to_find = "0"
+        o2 = self.omega // 2
+	if sample[o2] == 1:
+	    char_to_find = 0
 	else:
-	    char_to_find = "1"
-	before_idx = input.rfind(char_to_find, rate/2, 0)
-	after_idx = input.find(char_to_find, 0, rate/2)
+	    char_to_find = 1
 
-	if before_idx == -1 and after_idx == -1:
-	    return rate
+        char_idx = numpy.nonzero(sample == char_to_find)[0] 
+        print(char_idx)
+        if char_idx.size == 0:
+	    return self.omega
 
-	if before_idx == -1:
-	    return after_idx
-
-	if after_idx == -1:
-	    return before_idx + rate
-	return before_idx + rate if rate/2 - before_idx > after_idx - rate/2 else after_idx 
+        nearest_idx = char_idx[(numpy.abs(char_idx - o2)).argmin()]
+	return nearest_idx
 
 
