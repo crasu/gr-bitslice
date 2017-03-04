@@ -48,9 +48,10 @@ class qa_slicer (gr_unittest.TestCase):
         self.run_slicer([0, 0, 0, 1, 1, 1], (0, 1), 3)
         self.run_slicer([0, 0, 1, 1, 1], (0, 1), 3)
         self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1], (0, 1), 5)
         self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1, 1), 2)
         self.run_slicer([0], (), 2)
-        self.run_slicer([0, 0, 1, 1, 1, 1], (1,), 6)
+        self.run_slicer([0, 0, 1, 1, 1, 1, 1], (1,), 6)
         self.run_slicer([0,0,1,1,1,1,0,0,1,1,1], (0,1,0,1), 3)
 
 if __name__ == '__main__':
