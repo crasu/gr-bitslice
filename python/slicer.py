@@ -29,16 +29,15 @@ class slicer(gr.basic_block):
             in_sig=[numpy.uint8],
             out_sig=[numpy.uint8])
         self.omega = omega
+        self.debug = False
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
-        print(noutput_items)
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = self.omega * noutput_items
 
     def general_work(self, input_items, output_items):
         sample = input_items[0][0:self.omega]
-        print(sample)
         if(numpy.count_nonzero(sample) > self.omega/2):
             output_items[0][0] = 1
         else:
@@ -47,9 +46,11 @@ class slicer(gr.basic_block):
         consume = self.find_phase_change(sample)
         if consume == 0: # full consume if only phase change is at sample start
             consume = self.omega
-        
+       
+        if self.debug:
+            print("Sample: {}".format(sample))
+            print("Consume: {} Output: {}").format(consume, output_items[0][0])
         self.consume_each(consume)
-        print("consume: {}".format(consume))
         return 1
 
     def find_phase_change(self, sample):
