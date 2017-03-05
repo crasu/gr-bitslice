@@ -50,8 +50,12 @@ class slicer(gr.basic_block):
         if self.debug:
             print("Sample: {}".format(sample))
             print("Consume: {} Output: {}").format(consume, output_items[0][0])
+
         self.consume_each(consume)
-        return 1
+        if consume <= self.omega // 2:
+            return 0 # just move us to the nearest flank
+        else:
+            return 1
 
     def find_phase_change(self, sample):
         o2 = self.omega // 2
@@ -64,10 +68,4 @@ class slicer(gr.basic_block):
         if char_idx.size == 0:
 	    return self.omega
 
-        nearest_idx = char_idx[(numpy.abs(char_idx - o2)).argmin()]
-        if nearest_idx > o2:
-            return nearest_idx
-        else:
-	    return self.omega # FIXME needs to consume self.omega + nearest_idx
-
-
+        return char_idx[(numpy.abs(char_idx - o2)).argmin()]
