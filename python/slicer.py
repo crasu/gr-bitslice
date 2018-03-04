@@ -33,6 +33,8 @@ class slicer(gr.basic_block):
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
+        if self.debug:
+            print("forecast: {}".format(noutput_items))
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = self.omega * noutput_items
 
@@ -59,10 +61,10 @@ class slicer(gr.basic_block):
 
     def find_phase_change(self, sample):
         o2 = self.omega // 2
-	if sample[o2] == 1:
-	    char_to_find = 0
-	else:
-	    char_to_find = 1
+        if sample[o2] == 1:
+            char_to_find = 0
+        else:
+            char_to_find = 1
 
         char_idx = numpy.nonzero(sample == char_to_find)[0] 
         if char_idx.size == 0:
