@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<block>
+  <name>bitslice</name>
+  <key>bitslice_bitslice</key>
+  <category>Synchronizers</category>
+  <import>import bitslice</import>
+  <make>bitslice.slicer($omega)</make>
+  <param>
+    <name>omega</name>
+    <key>omega</key>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

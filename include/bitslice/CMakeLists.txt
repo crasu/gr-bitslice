@@ -22,5 +22,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/bitslice
+    bitslice.h DESTINATION include/bitslice
 )

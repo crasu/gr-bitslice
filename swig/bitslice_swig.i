@@ -8,6 +8,9 @@
 %include "bitslice_swig_doc.i"
 
 %{
+#include "bitslice/bitslice.h"
 %}
 
 
+%include "bitslice/bitslice.h"
+GR_SWIG_BLOCK_MAGIC2(bitslice, bitslice);
