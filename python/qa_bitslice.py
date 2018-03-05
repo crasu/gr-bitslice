@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import bitslice_swig as bitslice
+from bitslice.bitslice_swig import bitslice
 
 class qa_bitslice (gr_unittest.TestCase):
 
@@ -31,10 +31,16 @@ class qa_bitslice (gr_unittest.TestCase):
     def tearDown (self):
         self.tb = None
 
+    def run_slicer(self, input, output, omega):
+        src = blocks.vector_source_b(input, False)
+        sl = bitslice(omega)
+        sink = blocks.vector_sink_b()
+        self.tb.connect(src, sl, sink)
+        self.tb.run()
+        #self.assertEqual(sink.data(), output)
+
     def test_001_t (self):
-        # set up fg
-        self.tb.run ()
-        # check data
+        self.run_slicer([0, 1], (0, 1), 1)
 
 
 if __name__ == '__main__':
