@@ -37,10 +37,19 @@ class qa_bitslice (gr_unittest.TestCase):
         sink = blocks.vector_sink_b()
         self.tb.connect(src, sl, sink)
         self.tb.run()
-        #self.assertEqual(sink.data(), output)
+        self.assertEqual(sink.data(), output)
 
     def test_001_t (self):
-        self.run_slicer([0, 1], (0, 1), 1)
+        self.run_slicer([0, 1, 0], (0, 1, 0), 1)
+        self.run_slicer([0, 0], (0, ), 2)
+        self.run_slicer([0, 0, 0, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 0, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1), 3)
+        self.run_slicer([0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1], (0, 1), 5)
+        self.run_slicer([0, 0, 1, 1, 1, 1], (0, 1, 1), 2)
+        self.run_slicer([0], (), 2)
+        self.run_slicer([0, 0, 1, 1, 1, 1, 1, 1], (1,), 6)
+        self.run_slicer([0,0,1,1,1,1,0,0,1,1,1], (0,1,0,1), 3)
 
 
 if __name__ == '__main__':
