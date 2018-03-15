@@ -29,35 +29,48 @@ class slicer(gr.basic_block):
             in_sig=[numpy.uint8],
             out_sig=[numpy.uint8])
         self.omega = omega
-        self.debug = False
+        self.debug = True
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
-        if self.debug:
-            print("forecast: {}".format(noutput_items))
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = self.omega * noutput_items
 
     def general_work(self, input_items, output_items):
-        sample = input_items[0][0:self.omega]
-        if(numpy.count_nonzero(sample) > self.omega/2):
-            output_items[0][0] = 1
-        else:
-            output_items[0][0] = 0
-
-        consume = self.find_phase_change(sample)
-        if consume == 0: # full consume if only phase change is at sample start
-            consume = self.omega
-       
+        input = input_items[0][:]
         if self.debug:
-            print("Sample: {}".format(sample))
-            print("Consume: {} Output: {}").format(consume, output_items[0][0])
+            print("Input: {}".format(input))
+            print("Len input: {}".format(len(input_items[0])))
+            print("Len output: {}".format(len(output_items[0])))
+            print("Omega: {}".format(self.omega))
 
-        self.consume_each(consume)
-        if consume <= self.omega // 2:
-            return 0 # just move us to the nearest flank
-        else:
-            return 1
+        output_idx=0
+        consume_all = 0
+
+        while output_idx < len(output_items[0]) and consume_all <= len(input) - self.omega:
+            sample = input[consume_all:consume_all + self.omega]
+            if self.debug:
+                print("Sample: {}".format(sample))
+                print("Consume_all: {}".format(consume_all))
+
+            if(numpy.count_nonzero(sample) > self.omega/2):
+                output_items[0][output_idx] = 1
+            else:
+                output_items[0][output_idx] = 0
+
+            consume = self.find_phase_change(sample)
+            if consume == 0: # full consume if only phase change is at sample start
+                consume = self.omega
+
+            if self.debug:
+                print("Consume: {} Output: {}").format(consume, output_items[0])
+
+            consume_all += consume
+            if consume >= self.omega // 2:
+                output_idx+=1
+
+        self.consume_each(consume_all)
+        return output_idx
 
     def find_phase_change(self, sample):
         o2 = self.omega // 2

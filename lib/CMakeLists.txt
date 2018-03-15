@@ -26,7 +26,6 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND bitslice_sources
-    bitslice_impl.cc
 )
 
 set(bitslice_sources "${bitslice_sources}" PARENT_SCOPE)
