@@ -78,9 +78,6 @@ namespace gr {
             backward_dist = o2 - ((const unsigned char*) backward_ptr - in);
         }
 
-        std::cout << "forward_dist " << forward_dist << std::endl;
-        std::cout << "backward_dist " << backward_dist << std::endl;
-
         if (forward_dist < backward_dist) {
             return forward_dist + o2;
         } else {
@@ -107,15 +104,8 @@ namespace gr {
         int relevant_count = std::min(item_count, d_omega);
 
         int zero_count = std::count(in, in + relevant_count, 0);
-        ninput_items[0] = 1;
 
-        std::cout << "in: ";
-        for(int i=0; i < item_count; i++)
-            std::cout << (unsigned int)in[i];
-        std::cout << std::endl;
-        std::cout << "Item Count: " << item_count << std::endl;
-        std::cout << "Relevant Count: " << relevant_count << std::endl;
-        std::cout << "Zero Count: " << zero_count << std::endl;
+        //GR_LOG_INFO(d_logger, "Inputs " + std::to_string(item_count));
 
         if(zero_count > d_omega / 2) {
             out[0] = 0;
@@ -124,7 +114,6 @@ namespace gr {
         }
 
         int consume = find_phase_change(in, relevant_count);
-        std::cout << "Consume: " << consume << std::endl;
 
         if(consume == 0) {
             consume = d_omega;
