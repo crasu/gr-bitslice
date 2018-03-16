@@ -2,3 +2,5 @@ build
 .unittests
 *.pyc
 *.pyo
+.idead
+cmake-build-debug
