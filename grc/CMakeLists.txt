@@ -18,5 +18,5 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-    bitslice_slicer.xml DESTINATION share/gnuradio/grc/blocks
+    bitslice_slicer.block.yml DESTINATION share/gnuradio/grc/blocks
 )

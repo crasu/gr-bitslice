@@ -31,10 +31,9 @@ class slicer(gr.basic_block):
         self.omega = omega
         self.debug = True
 
-    def forecast(self, noutput_items, ninput_items_required):
-        #setup size of input_items[i] for work call
-        for i in range(len(ninput_items_required)):
-            ninput_items_required[i] = self.omega * noutput_items
+    def forecast(self, noutput_items, ninputs):
+        ninput_items_required = [noutput_items] * ninputs * self.omega
+        return ninput_items_required
 
     def general_work(self, input_items, output_items):
         input = input_items[0][:]
@@ -81,6 +80,6 @@ class slicer(gr.basic_block):
 
         char_idx = numpy.nonzero(sample == char_to_find)[0] 
         if char_idx.size == 0:
-	    return self.omega
+            return self.omega
 
         return char_idx[(numpy.abs(char_idx - o2)).argmin()]

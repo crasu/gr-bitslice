@@ -31,5 +31,5 @@ except ImportError:
 	pass
 
 # import any pure python here
-from slicer import slicer
+from .slicer import slicer
 #

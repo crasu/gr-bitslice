@@ -1,0 +1,23 @@
+id: bitslice_slicer
+label: slicer
+category: '[Synchronizers]'
+
+templates:
+  imports: import bitslice
+  make: bitslice.slicer(${omega})
+
+parameters:
+- id: omega
+  label: omega
+  dtype: int
+  default: 1
+
+inputs:
+- label: in
+  dtype: byte
+
+outputs:
+- label: out
+  dtype: byte
+
+file_format: 1
