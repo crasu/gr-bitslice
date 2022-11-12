@@ -29,19 +29,18 @@ class slicer(gr.basic_block):
             in_sig=[numpy.uint8],
             out_sig=[numpy.uint8])
         self.omega = omega
-        self.debug = True
+        self.debug = False
 
     def forecast(self, noutput_items, ninputs):
-        ninput_items_required = [noutput_items] * ninputs * self.omega
+        if self.debug:
+            print(f"Forecast ninputs: {ninputs} Output {noutput_items} Omega {self.omega}")
+        ninput_items_required = [noutput_items * self.omega] * ninputs
         return ninput_items_required
 
     def general_work(self, input_items, output_items):
         input = input_items[0][:]
         if self.debug:
-            print("Input: {}".format(input))
-            print("Len input: {}".format(len(input_items[0])))
-            print("Len output: {}".format(len(output_items[0])))
-            print("Omega: {}".format(self.omega))
+            print(f"Input: {input} Omega {self.omega}")
 
         output_idx=0
         consume_all = 0
@@ -49,8 +48,7 @@ class slicer(gr.basic_block):
         while output_idx < len(output_items[0]) and consume_all <= len(input) - self.omega:
             sample = input[consume_all:consume_all + self.omega]
             if self.debug:
-                print("Sample: {}".format(sample))
-                print("Consume_all: {}".format(consume_all))
+                print(f"Sample: {sample}")
 
             if(numpy.count_nonzero(sample) > self.omega/2):
                 output_items[0][output_idx] = 1
@@ -62,7 +60,7 @@ class slicer(gr.basic_block):
                 consume = self.omega
 
             if self.debug:
-                print("Consume: {} Output: {}").format(consume, output_items[0])
+                print(f"Consume: {consume} Output: {output_items}")
 
             consume_all += consume
             if consume >= self.omega // 2:
